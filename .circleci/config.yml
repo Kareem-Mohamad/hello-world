@@ -40,3 +40,5 @@ workflows:
       - say-hello
       - say-world:
           requires: [say-hello]
+      - my-name: 
+        - requires: [say-world]
