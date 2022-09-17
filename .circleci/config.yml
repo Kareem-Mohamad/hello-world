@@ -8,24 +8,21 @@ orbs:
 jobs:
   print:  # Choose any name, such as `build`
       # The primary container, where your job's commands will run
-      docker:
-        - image: cimg/base:stable
-      steps:
-        - checkout # check out the code in the project directory
-        - run: echo "hello world" # run the `echo` command
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout # check out the code in the project directory
+      - run: echo "hello world" # run the `echo` command
         
   create_infrastructure: 
-      docker:
-        - image: amazon/aws-cli
-      steps:
-        - checkout
-        - run:
-            name: Create Cloudformation Stack
-            command: |
-              aws cloudformation deploy \
-                --template-file template.yml \
-                --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-                --region us-east-1
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+        name: Create Cloudformation Stack
+        command: |
+          aws cloudformation deploy --template-file template.yml --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}  --region us-east-1
 # Sequential workflow
 workflows:
   # Name the workflow
@@ -33,5 +30,3 @@ workflows:
     jobs:
       - print
       - create_infrastructure
-
- 
