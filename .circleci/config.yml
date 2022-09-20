@@ -12,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Create Cloudformation Stack"
           command: |
             aws cloudformation deploy --template-file template.yml --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}  --region us-east-1
           command: |
@@ -33,11 +34,11 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["b9:de:1f:8d:50:bb:4b:d5:dd:fd:63:be:d5:0e:c2:96"] # You can get this ID in the section where you registered the SSH Key
       - run:
-          name: Install dependencies
+          name: "Install dependencies"
           command: |
             apk add --update ansible 
       - run:
-          name: Configure server
+          name: "Configure server"
           command: |
             ansible-playbook -i inventory.txt main-remote.yml
 # Sequential workflow
