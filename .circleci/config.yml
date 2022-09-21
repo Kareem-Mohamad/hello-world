@@ -32,7 +32,7 @@ jobs:
             yum install -y tar gzip
       - run:
           name: "Populate EC2 IP"
-          command:
+          command: |
             BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
               --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
